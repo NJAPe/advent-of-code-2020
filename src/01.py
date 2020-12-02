@@ -18,15 +18,15 @@ def solve_part_1_real():
     print(f'Part 1 answer is: {ans}')
 
 def solve_part_2(inp):
-    # simplest solution O(n^2)
-    tested = []
-    for row in inp:
-        num_1 = int(row)
-        for idx, num_2 in enumerate(tested):
-            for num_3 in tested[idx+1:]:
-                if (num_1 + num_2 + num_3) == 2020:
-                    return num_1 * num_2 * num_3
-        tested.append(num_1)
+    sums = {}
+    inp_num = [int(i) for i in inp]
+    for idx, num_1 in enumerate(inp_num):
+        for num_2 in inp_num[idx + 1:]:
+            sums[num_1 + num_2] = num_1 * num_2
+
+    for num_3 in inp_num:
+        if (2020 - num_3) in sums:
+            return num_3 * sums[2020 - num_3]
 
 def solve_part_2_test():
     ans = solve_part_2(get_input('input\\01_test.txt'))
