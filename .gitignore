@@ -106,5 +106,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+.vscode/
+
 # test results
 test-result.xml
