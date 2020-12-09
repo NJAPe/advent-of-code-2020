@@ -25,7 +25,6 @@ def get_first_missing(inp, preamble):
         else:
             return inp[idx]
 
-
 def get_contiguos_sum_to(numbers, target):
     tail, head = 0, 1
     contiguos = [numbers[tail]]
