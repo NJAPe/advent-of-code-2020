@@ -1,5 +1,6 @@
 from common import get_input
 
+
 def parse_program_line(line):
     cmd, arg = line.split()
     return cmd, int(arg)
