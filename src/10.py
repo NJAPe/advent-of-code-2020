@@ -21,7 +21,7 @@ def get_consecutive_run_from(inp, idx):
             consecutive.append(i)
     return consecutive
 
-def num_path_in_consecutive(consecutive):
+def count_paths_in_consecutive(consecutive):
     length = len(consecutive)
     if length == 1:
         return 1
@@ -37,10 +37,24 @@ def num_path_in_consecutive(consecutive):
 
 def get_num_ways(inp, idx, consecutive):
     if consecutive[-1] == inp[-1]:
-        return num_path_in_consecutive(consecutive)
+        return count_paths_in_consecutive(consecutive)
     next_consecutive = get_consecutive_run_from(inp, idx + len(consecutive))
-    path_in_cons = num_path_in_consecutive(consecutive)
-    return path_in_cons * get_num_ways(inp, idx + len(consecutive), next_consecutive)
+    if next_consecutive[0] - consecutive[-1] == 3:
+        path_in_cons = count_paths_in_consecutive(consecutive)
+        return path_in_cons * get_num_ways(inp, idx + len(consecutive), next_consecutive)
+    else:
+        # Never occurs in data set so not sure of validity
+        num_ways_in_next = get_num_ways(inp, idx + len(consecutive), next_consecutive)
+        paths_in_consecutive = count_paths_in_consecutive(consecutive)
+        # Way 1 last of this -> first of next
+        total_paths = paths_in_consecutive * num_ways_in_next
+        # Way 2 next to last of this -> first of next
+        if len(consecutive) > 1:
+            total_paths += count_paths_in_consecutive(consecutive[:-1]) * num_ways_in_next
+        # Way 3 last of this -> second of next
+        if len(next_consecutive) > 1:
+            total_paths += paths_in_consecutive * get_num_ways(inp, idx + len(consecutive) + 1, next_consecutive[1:])
+        return total_paths
 
 def solve_part_1(file_name):
     counts = get_num_diffs(get_int_input(file_name))
@@ -57,4 +71,5 @@ if __name__ == "__main__":
     solve_part_1('input\\10_test.txt')
     solve_part_1('input\\10.txt')
     solve_part_2('input\\10_test.txt')
+    solve_part_2('input\\10_test_2_gaps.txt')
     solve_part_2('input\\10.txt')
