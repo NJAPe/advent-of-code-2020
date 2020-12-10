@@ -1,8 +1,5 @@
-from common import get_input
+from common import get_int_input
 
-
-def parse_input(file_name):
-    return [int(i) for i in get_input(file_name)]
 
 def has_sum(numbers, target):
     numbers.sort()
@@ -44,11 +41,11 @@ def get_contiguos_sum_to(numbers, target):
     return None
 
 def solve_part_1(file_name, preamble):
-    missing = get_first_missing(parse_input(file_name), preamble)
+    missing = get_first_missing(get_int_input(file_name), preamble)
     print(f'Part 1 {file_name}: {missing}')
 
 def solve_part_2(file_name, preamble):
-    inp = parse_input(file_name)
+    inp = get_int_input(file_name)
     missing = get_first_missing(inp, preamble)
     contiguos = sorted(get_contiguos_sum_to(inp, missing))
     print(f'Part 2 {file_name}: {contiguos[0] + contiguos[-1]}')
