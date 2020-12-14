@@ -12,10 +12,10 @@ def get_int_input(filename):
 def time_function(function):
     def wrap(*args, **kwargs):
         print('\nTiming execution:')
-        start = time.time()
+        start = time.perf_counter_ns()
         ret = function(*args, **kwargs)
-        stop = time.time()
-        print(f'Execution took {stop - start}s\n')
+        stop = time.perf_counter_ns()
+        print(f'Execution took {(stop - start)/10**9}s\n')
         return ret
     return wrap
 
